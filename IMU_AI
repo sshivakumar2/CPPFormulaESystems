@@ -1,0 +1,40 @@
+#include <Wire.h>
+#include <MPU6050.h>
+
+MPU6050 mpu;
+
+void setup() {
+  Serial.begin(9600);
+  Wire.begin();
+  mpu.begin();
+}
+
+void loop() {
+  // Read the acceleration, gyroscope, and temperature values
+  Vector rawAccel = mpu.getAcceleration();
+  Vector rawGyro = mpu.getRotation();
+  float temperature = mpu.getTemperature();
+
+  // Print the results to the serial monitor
+  Serial.print("Acceleration: ");
+  Serial.print(rawAccel.xAxis);
+  Serial.print(", ");
+  Serial.print(rawAccel.yAxis);
+  Serial.print(", ");
+  Serial.print(rawAccel.zAxis);
+  Serial.println(" g");
+  Serial.print("Gyroscope: ");
+  Serial.print(rawGyro.xAxis);
+  Serial.print(", ");
+  Serial.print(rawGyro.yAxis);
+  Serial.print(", ");
+  Serial.print(rawGyro.zAxis);
+  Serial.println("°/s");
+  Serial.print("Temperature: ");
+  Serial.print(temperature);
+  Serial.println("°C");
+  Serial.println();
+
+  // Wait for a brief moment before taking the next measurement
+  delay(1000);
+}
